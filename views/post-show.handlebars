@@ -13,5 +13,6 @@
 </form>
 
 {{#each post.comments}}
+  <p>{{post.author.username}}</p>
   <p>{{this.content}}</p>
 {{/each}}
