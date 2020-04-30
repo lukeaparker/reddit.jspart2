@@ -22,9 +22,22 @@ app.use(expressValidator())
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// routes
-app.get('/posts/new', (req, res) => res.render('posts-new'))
 
+var checkAuth = (req, res, next) => {
+  console.log("Checking authentication");
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+    req.user = null;
+  } else {
+    var token = req.cookies.nToken;
+    var decodedToken = jwt.decode(token, { complete: true }) || {};
+    req.user = decodedToken.payload;
+  }
+
+  next();
+};
+app.use(checkAuth);
+
+// routes
 require('./controllers/posts.js')(app)
 
 require('./controllers/comments.js')(app)
