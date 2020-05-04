@@ -40,8 +40,6 @@ app.post("/posts/new", (req, res) => {
 });
 });
 
-
-
   // INDEX
   app.get("/", (req, res) => {
     let currentUser = req.user;
@@ -56,41 +54,30 @@ app.post("/posts/new", (req, res) => {
         });
 });
 
+// SHOW
 app.get("/posts/:id", function (req, res) {
-    let currentUser = req.user;
-    Post.findById(req.params.id)
-        .populate({
-            path: "comments",
-            populate: {
-                path: "author"
-            }
-        }).populate("author")
-        
-        .then(post => {
-            post = JSON.parse(JSON.stringify(post));
-            res.render("post-show", { post, currentUser })
-        })
-        .catch(err => {
-            console.log(err);
-        });
+  var currentUser = req.user;
+  Post.findById(req.params.id).populate('comments').lean()
+      .then(post => {
+          res.render("post-show", { post, currentUser });  
+      })
+      .catch(err => {
+          console.log(err.message);
+      });
 });
-
-  
-
-
-
-  
 
 // SUBREDDIT
 app.get("/n/:subreddit", function (req, res) {
   var currentUser = req.user;
-  Post.find({ subreddit: req.params.subreddit }).populate('author')
+  Post.find({ subreddit: req.params.subreddit }).lean()
       .then(posts => {
-        posts = JSON.parse(JSON.stringify(posts))
-        res.render("posts-index", { posts, currentUser });
+          res.render("posts-index", { posts, currentUser });
       })
       .catch(err => {
           console.log(err);
       });
 });
+
+
+
 }
