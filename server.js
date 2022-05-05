@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 app.use(cookieParser()); // Add this after you initialize express.
 
+// Static
+app.use(express.static('public'))
 
 // db
 require('./data/reddit-db')

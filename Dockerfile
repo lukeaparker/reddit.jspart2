@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 node:10-alpine
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy dependencies 
 COPY package*.json ./
