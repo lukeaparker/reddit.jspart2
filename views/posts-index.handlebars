@@ -1,19 +1,31 @@
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-        <ul>
-            {{#each posts}}
-              <li class="list-group-item">
-                <div class="lead">
-                  <a href="/posts/{{this._id}}" class="lead">{{this.title}}</a>
-                </div>
-                <a href="{{this.url}}" target="_blank">{{this.url}}</a>
-                <div><small>{{this.author.username}}</small></div>
-
-                <div class="text-right">
-                  <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
-                </div>
-              </li>
-            {{/each}}
-        </ul>
+<section class="card-header flex ">
+    <div class="collection-info flex">
+      <div class="icon-label-large icon-label-black">
+        <span class="iconify" data-icon="ic:sharp-forum">
+        </span>
+      </div>
+      <div>
+        <h2>Forum</h2>
+      </div>
     </div>
-</div>
+      <a href="/posts/new" class="button blue">New Post</a>
+  </section>
+
+
+  <ul role="list" class="rounded-pill">
+      {{#each posts}}
+        <li>
+          <div>
+            <a href="/posts/{{this._id}}" class="lead">{{this.title}}</a>
+          </div>
+          <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+          <div><small>{{this.author.username}}</small></div>
+
+          <div class="text-right">
+            <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
+          </div>
+        </li>
+      {{/each}}
+  </ul>
+              
+

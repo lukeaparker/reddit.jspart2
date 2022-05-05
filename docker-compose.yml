@@ -5,9 +5,11 @@ services:
     ports:
     - "3000:3000"
     depends_on:
-    - mongo
+      - mongo
+    volumes: [ ".:/app" ]
+
+
   mongo:
     image: mongo
     ports:
       - "27017:27017"
-    volumes: [ ".:/app" ]
